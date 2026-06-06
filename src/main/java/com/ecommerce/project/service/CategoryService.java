@@ -9,10 +9,12 @@ import java.util.List;
 
 public interface CategoryService {
 
-    CategoryResponse getAllCategories(Integer PageNumber, Integer PageSize);
+    CategoryResponse getAllCategories(Integer PageNumber, Integer PageSize, String sortBy, String sortOrder);
     CategoryDTO createCategory( CategoryDTO categoryDTO);
 
    CategoryDTO deleteCategory(Long categoryId);
 
     CategoryDTO UpdatedCategory(CategoryDTO categoryDTO, Long categoryId);
+
+    //CategoryResponse getAllCategories(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 }

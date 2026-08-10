@@ -29,19 +29,22 @@ public class User {
 
     @NotBlank
     @Size(max = 20)
-    private String username;
-
-    @NotBlank
-    @Size(max = 120)
-    private String password;
+    @Column(name = "username")
+    private String userName;
 
     @NotBlank
     @Size(max = 50)
     @Email
     private String email;
 
-    public User(String username, String password, String email) {
-        this.username = username;
+    @NotBlank
+    @Size(max = 120)
+    private String password;
+
+
+
+    public User(String username, String email, String password) {
+        this.userName = username;
         this.password = password;
         this.email = email;
     }

@@ -142,21 +142,22 @@ public class AuthController {
     @GetMapping("/user")
     public ResponseEntity<?> getUseName(Authentication authentication) {
 
-//        if (authentication == null) {
-//            return ResponseEntity
-//                    .status(HttpStatus.UNAUTHORIZED)
-//                    .body(new MessageResponse("User is not authenticated"));
-//        }
-
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        // assert userDetails != null;
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
         UserInfoResponse loginResponse = new UserInfoResponse(userDetails.getId(),userDetails.getUsername(), roles);
 
         return ResponseEntity.ok().body(loginResponse) ;
+
+    }
+
+    @PostMapping("/signout")
+    public ResponseEntity<?> signoutUser() {
+        ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
+
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(new MessageResponse("Success fully logged out !! ")) ;
 
     }
 }

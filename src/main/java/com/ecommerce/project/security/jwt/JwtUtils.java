@@ -67,6 +67,15 @@
 
         }
 
+
+        public ResponseCookie getCleanJwtCookie() {
+            ResponseCookie cookie = ResponseCookie.from(jwtCookie,null)
+                    .path("/api")
+                    .build();
+            return cookie;
+
+        }
+
         public String generateTokenFromUsername(String username) {
            // String username = userDetails.getUsername();
 

@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -96,6 +97,27 @@ public class CartServiceImpl implements CartService {
         cartDTO.setProducts(productDTOStream.toList());
 
         return cartDTO;
+    }
+
+    @Override
+    public List<CartDTO> getAllCarts() {
+
+        List <Cart> carts = cartRepository.findAll();
+
+        if(carts.isEmpty()) {
+            throw new APIException("no carts found");
+        }
+
+        List<CartDTO> cartDTOS = carts.stream().map(cart -> {
+            CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
+            List<ProductDTO> productDTOS = cart.getCartItems().stream().map(item -> {
+                        ProductDTO map = modelMapper.map(item.getProduct(), ProductDTO.class);
+                        return map;
+                    }
+            );}
+        );
+
+        return List.of();
     }
 
     private Cart createCart() {

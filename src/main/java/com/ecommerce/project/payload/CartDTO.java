@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CartDTO {
 
-    private Long cartItemId;
+    private Long cartId;
     private Double totalPrice = 0.0;
     private List<ProductDTO> products = new ArrayList<>();
 

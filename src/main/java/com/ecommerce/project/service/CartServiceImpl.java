@@ -62,7 +62,7 @@ public class CartServiceImpl implements CartService {
         }
 
         if(product.getQuantity() < quantity) {
-            throw new APIException("Please make ther order " + product.getProductName() + " quantity less than or equal to " + quantity + "." );
+            throw new APIException("Please make the order " + product.getProductName() + " quantity less than or equal to " + product.getQuantity() + "." );
         }
 
      //create cartItem
@@ -73,20 +73,23 @@ public class CartServiceImpl implements CartService {
         newCartItem.setDiscount(product.getDiscount());
         newCartItem.setProductPrice(product.getSpecialPrice());
 
-        CartItem updatedCartItem = cartItemRepository.save(newCartItem);
+        cartItemRepository.save(newCartItem);
+
+        cart.getCartItems().add(newCartItem);
+
 
         product.setQuantity(product.getQuantity());
         cart.setTotalPrice(cart.getTotalPrice() + (product.getSpecialPrice() * quantity));
 
         cartRepository.save(cart);
 
-        CartDTO cartDTO = modelMapper.map(updatedCartItem, CartDTO.class);
+        CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
 
         List<CartItem> cartItems = cart.getCartItems();
 
         Stream<ProductDTO> productDTOStream = cartItems.stream().map(item -> {
             ProductDTO map = modelMapper.map(item.getProduct(), ProductDTO.class);
-            product.setQuantity(item.getQuantity());
+            map.setQuantity(item.getQuantity());
             return map;
         });
 

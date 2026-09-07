@@ -10,13 +10,14 @@ import com.ecommerce.project.repositories.*;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@Service
 public class OrderServiceImpl implements OrderService{
 
     @Autowired

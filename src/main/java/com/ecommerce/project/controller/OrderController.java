@@ -8,9 +8,10 @@ import com.ecommerce.project.utils.AuthUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-
+@RestController
+@RequestMapping("/api")
 public class OrderController {
    @Autowired
    private AuthUtils authUtils;
@@ -20,7 +21,7 @@ public class OrderController {
 
 
     @PostMapping("/order/users/payments/{paymentMethod}")
-    public ResponseEntity<OrderDTO> orderProducts(String paymentMethod, OrderRequestDTO orderRequestDTO){
+    public ResponseEntity<OrderDTO> orderProducts(@PathVariable String paymentMethod,@RequestBody OrderRequestDTO orderRequestDTO){
         String emailId = authUtils.loggedInEmail();
 
         OrderDTO orderDTO = orderService.placeOrder(

@@ -138,7 +138,7 @@ public class AuthController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<?> getUseName(Authentication authentication) {
+    public ResponseEntity<?> getUserName(Authentication authentication) {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 

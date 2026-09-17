@@ -68,10 +68,14 @@ public class WebSecurityConfig {
                         .requestMatchers("/v3/api-docs/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
-                        //.requestMatchers("/api/public/**").permitAll()
+                        .requestMatchers("/api/public/**").permitAll()
                         //.requestMatchers("/api/admin/**").permitAll()
                         .requestMatchers("/api/test/**").permitAll()
                         .requestMatchers("/images/**").authenticated()
+                        .requestMatchers("/scalar/**").permitAll()
+                        .requestMatchers("/swagger-ui.html**").permitAll()
+                        .requestMatchers("/scalar").permitAll()
+                        .requestMatchers("/scalar", "/scalar/**").permitAll()
                         .anyRequest()
                         .authenticated());
 

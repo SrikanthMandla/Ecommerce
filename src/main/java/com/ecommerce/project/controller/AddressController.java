@@ -3,6 +3,7 @@ package com.ecommerce.project.controller;
 
 import com.ecommerce.project.payload.AddressDTO;
 import com.ecommerce.project.service.AddressService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@Tag(name = "Address API", description = "APIs for managing address")
 @RequestMapping("/api")
 public class AddressController {
 

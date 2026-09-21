@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Tag(name = "Categories API", description = "APIs for managing categories")
 @RequestMapping("/api")
 public class CategoryController {
 
@@ -19,7 +20,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
 
-    @Tag(name = "Categories API", description = "APIs for managing categories")
+
     @GetMapping("/public/categories")
     public ResponseEntity<CategoryResponse> getAllCategories(@RequestParam(name = "PageNumber",
             defaultValue = AppConstants.Page_Number, required = false) Integer pageNumber,

@@ -5,6 +5,9 @@ import com.ecommerce.project.payload.CartDTO;
 import com.ecommerce.project.repositories.CartRepository;
 import com.ecommerce.project.service.CartService;
 import com.ecommerce.project.utils.AuthUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@Tag(name = "Cart API", description = "APIs for managing carts")
 @RequestMapping("/api")
 public class CartController {
     @Autowired
@@ -55,7 +59,12 @@ public class CartController {
     }
 
     @PutMapping("/cart/products/{productId}/quantity/{operation}")
-    public ResponseEntity<CartDTO> updateProductQuantity(@PathVariable Long productId, @PathVariable String operation) {
+    @Operation(summary = "update product quantity - use 'increase' or 'delete'")
+    public ResponseEntity<CartDTO> updateProductQuantity(@Parameter(
+            description = "ID of the product to update",
+            example = "1",
+            required = true
+    ) @PathVariable Long productId, @PathVariable String operation) {
 
             CartDTO cartDTO = cartService.updateProductQuantitiyInCart(productId,
                     operation.equalsIgnoreCase("delete") ? -1 : 1);

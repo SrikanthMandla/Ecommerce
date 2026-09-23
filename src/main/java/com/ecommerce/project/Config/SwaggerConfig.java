@@ -1,18 +1,22 @@
 package com.ecommerce.project.Config;
 
+
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
 
     @Bean
     public OpenAPI CustomOpenAPI(){
-
 
         SecurityScheme bearerScheme = new SecurityScheme()
                 .type(SecurityScheme.Type.HTTP)
@@ -24,9 +28,25 @@ public class SwaggerConfig {
                 .addList("Bearer Authentication");
 
 
+        Server productionServer = new Server()
+                .url("https://nexcart-production-1475.up.railway.app")
+                .description("Production Server");
+        Server localServer = new Server()
+                .url("https://localhost:8080")
+                .description("localServer");
+
         return new OpenAPI()
                 .components(new Components()
                         .addSecuritySchemes("Bearer Authentication", bearerScheme))
-                .addSecurityItem(securityRequirement);
+                .addSecurityItem(securityRequirement)
+                .info(new Info()
+                        .title("NexCart API")
+                        .version("1.0")
+                        .description("NexCart Backend API"))
+                .servers(List.of(productionServer, localServer));
+
+
+
+
     }
 }
